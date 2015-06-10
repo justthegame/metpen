@@ -13,7 +13,27 @@ class Admin extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('welcome_message');
+        $data['title']="Beranda - Portal Informasi Maharu UBAYA";
+        
+        if (!$this->session->userdata('role')) // not set
+        {
+            $warning = "<div class='alert alert-warning alert-dismissible' role='alert'>"
+                        . "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span>"
+                        . "<span class='sr-only'>Close</span>"
+                        . "</button><strong>Lakukan proses login dahulu.</strong> "
+                        . "</div>";
+            $this->session->set_flashdata('warning',$warning);
+            redirect('/admin/login', 'location'); 
+        }
+        else  
+        {
+            $this->session->set_flashdata('home',true); 
+            
+            $this->load->view('back/b_header',$data);
+            $this->load->view('back/b_backend');
+            $this->load->view('back/b_footer'); 
+        }
+        
     }
 
     public function logout() {
