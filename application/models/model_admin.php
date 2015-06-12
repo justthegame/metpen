@@ -41,7 +41,7 @@ class Model_admin extends CI_Model {
     }
     
     function check_member($username,$password){
-        $sql = "SELECT u.username as username, f.nama as nama  FROM user u "
+        $sql = "SELECT f.id as idFakultas, u.username as username, f.nama as nama  FROM user u "
                 . " INNER JOIN fakultas f ON f.id = u.idFakultas "
                 . " WHERE username=? AND "
                 . " password=?";

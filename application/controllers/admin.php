@@ -69,7 +69,8 @@ class Admin extends CI_Controller {
                 if ($admincheck){
                     $loginarray = array(
                         'username' => $admincheck->username,
-                        'role' => 'Administrator'
+                        'role' => 'Administrator',
+                        'idFakultas' => '0'
                     );
                     $this->session->set_userdata($loginarray);
 
@@ -80,7 +81,7 @@ class Admin extends CI_Controller {
                 else if ($membercheck){
                     $loginarray = array(
                         'username' => $membercheck->username,
-                        'fakultas' => $membercheck->nama,
+                        'idFakultas' => $membercheck->idFakultas,
                         'role' => 'Member'
                     );
                     $this->session->set_userdata($loginarray);
@@ -102,7 +103,7 @@ class Admin extends CI_Controller {
         }
         else
         {
-            if($this->session->userdata('role')) redirect('/guidance/home', 'location');
+            if($this->session->userdata('role')) redirect('/admin/', 'location');
             $data['title'] = "Masuk - Portal Informasi Mahasiswa Baru";
             $this->load->library('form_validation');
             $this->load->helper('form');
