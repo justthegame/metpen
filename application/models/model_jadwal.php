@@ -18,6 +18,25 @@ class Model_jadwal extends CI_Model {
         $this->load->database('default');
     }
     
+    function getalljadwal($offset, $limit){
+            $sql = " SELECT j.id as id, j.nama as namaAcara, j.jam_awal as jamAwal, j.jam_akhir as jamAkhir, j.tempat as tempat, f.nama as namaFakultas  "
+                    . " FROM info_jadwal_mob j "
+                    . " INNER JOIN fakultas f ON f.id = j.idFakultas "
+                    . " LIMIT ".$limit." OFFSET ".$offset;
+            
+            $this->load->database('default');
+            $row = $this->db->query($sql,array());
+            
+            if ($row->num_rows() > 0)
+            {
+                return $row;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     function ambil_semua_jadwal(){
         $sql = " SELECT j.id as id, j.nama as namaAcara, j.jam_awal as jamAwal, j.jam_akhir as jamAkhir, j.tempat as tempat, f.nama as namaFakultas  "
                 . " FROM info_jadwal_mob j "
