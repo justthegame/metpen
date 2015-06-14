@@ -35,6 +35,23 @@ class Model_fakultas extends CI_Model {
         }
     }
     
+    function ambil_fakultas($id){
+        $sql = " SELECT f.id as id, f.nama as nama, f.deskripsi as deskripsi "
+                . " FROM fakultas f where f.id =".$id;
+        
+        $this->load->database('default');
+        $row = $this->db->query($sql,array());
+        
+        if ($row->num_rows() > 0)
+        {
+            return $row;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     function tambah_fakultas($nama,$deskripsi){
         $this->db->trans_start();
         $this->db->query("INSERT INTO fakultas(nama,deskripsi) VALUES('".$nama."','".$deskripsi."')");

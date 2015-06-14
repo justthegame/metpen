@@ -18,6 +18,26 @@ class Model_post extends CI_Model {
         $this->load->database('default');
     }
     
+    function getallpost($offset, $limit) {
+
+        $sql = " SELECT p.judul as judul, p.isi as isi, f.nama as namaFakultas, p.id as id "
+                . " FROM post p "
+                . " INNER JOIN fakultas f ON f.id = p.idFakultas "
+                . " LIMIT ".$limit." OFFSET ".$offset;
+        
+        $this->load->database('default');
+        $row = $this->db->query($sql,array());
+        
+        if ($row->num_rows() > 0)
+        {
+            return $row;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     function ambil_semua_post(){
         $sql = " SELECT p.judul as judul, p.isi as isi, f.nama as namaFakultas, p.id as id "
                 . " FROM post p "
